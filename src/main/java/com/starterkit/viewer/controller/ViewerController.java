@@ -23,6 +23,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.stage.FileChooser;
@@ -66,7 +67,7 @@ public class ViewerController {
 	private Button nextButton;
 
 	@FXML
-	private Button slideButton;
+	private ToggleButton slideButton;
 
 	@FXML
 	private Button previousButton;
@@ -82,6 +83,8 @@ public class ViewerController {
 	private SimpleImageView simpleImageView = new SimpleImageView();
 
 	private final ImageToView model = new ImageToView();
+
+	private final Timer timer = new Timer();
 
 	public ViewerController() {
 		LOG.debug("Constructor");
@@ -103,9 +106,11 @@ public class ViewerController {
 	private void initialize() {
 		LOG.debug("initialize()");
 		imageView.imageProperty().bind(model.imageProperty());
+		slideButton.disableProperty().bind(model.imageProperty().isNull());
+		nextButton.disableProperty().bind(model.imageProperty().isNull());
+		previousButton.disableProperty().bind(model.imageProperty().isNull());
 	}
 
-	
 	@FXML
 	private void scrolling(ScrollEvent scrollEvent) {
 		if (scrollEvent.getDeltaY() > 0) {
@@ -134,17 +139,13 @@ public class ViewerController {
 	@FXML
 	private void previousButtonAction(ActionEvent event) {
 		LOG.debug("'Previous' button clicked");
-		if (simpleImageView.getSizeOfImages() != 0) {
-			model.setImage(simpleImageView.getPrevious());
-		}
+		model.setImage(simpleImageView.getPrevious());
 	}
 
 	@FXML
 	private void nextButtonAction(ActionEvent event) {
 		LOG.debug("'Next' button clicked");
-		if (simpleImageView.getSizeOfImages() != 0) {
-			model.setImage(simpleImageView.getNext());
-		}
+		model.setImage(simpleImageView.getNext());
 	}
 
 	private static void configureFileChooser(final FileChooser fileChooser) {
@@ -153,26 +154,25 @@ public class ViewerController {
 		fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("All Images", "*.*"),
 				new FileChooser.ExtensionFilter("JPG", "*.jpg"), new FileChooser.ExtensionFilter("PNG", "*.png"));
 	}
-//Timer
+
+	// Timer
 	@FXML
 	private void slideShowButtonAction(ActionEvent event) {
 		LOG.debug("'Slide' button clicked");
-		if (simpleImageView.getSizeOfImages() != 0) {
+		if (slideButton.isSelected()) {
+			LOG.debug("slideButton id Selected");
 			Task<Void> backgroundTask = new Task<Void>() {
 
-				/**
-				 * This method will be executed in a background thread.
-				 */
 				@Override
 				protected Void call() throws Exception {
 					LOG.debug("call() called");
 					long delay = 1000;
-					new Timer().schedule(new TimerTask() {
+					timer.schedule(new TimerTask() {
 
-					    @Override
-					    public void run() {
-					    	model.setImage(simpleImageView.getNext());
-					    }
+						@Override
+						public void run() {
+							model.setImage(simpleImageView.getNext());
+						}
 					}, 0, delay);
 					return null;
 				}
@@ -182,11 +182,11 @@ public class ViewerController {
 
 				}
 			};
-
-			Thread thread = new Thread(backgroundTask);
-			thread.start();
+			new Thread(backgroundTask).start();
+		} else {
+			LOG.debug("slideButton id not Selected, Slideshow is ended");
+			timer.cancel();
 		}
-
 	}
 
 }
