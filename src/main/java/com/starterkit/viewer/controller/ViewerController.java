@@ -197,7 +197,7 @@ public class ViewerController {
 		LOG.debug("'Slide' button clicked");
 
 		if (slideButton.isSelected()) {
-			slideButton.setText("Stop slide show");
+			slideButton.setText(resources.getString("button.slideStop"));
 			LOG.debug("'Slide' button is Selected");
 			Task<Void> backgroundTask = new Task<Void>() {
 				@Override
@@ -222,7 +222,7 @@ public class ViewerController {
 			};
 			new Thread(backgroundTask).start();
 		} else {
-			slideButton.setText("Play slide show");
+			slideButton.setText(resources.getString("button.slidePlay"));
 			LOG.debug("'Slide' button is not Selected, slide show is ended");
 			timer.cancel();
 		}

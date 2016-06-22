@@ -18,7 +18,7 @@
 	<Button fx:id="nextButton" defaultButton="true" layoutX="810.0" layoutY="467.0" mnemonicParsing="false" onAction="#nextButtonAction" prefHeight="31.0" prefWidth="122.0" text="%button.next" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="20.0" />
 	<Button fx:id="previousButton" defaultButton="true" layoutX="32.0" layoutY="467.0" mnemonicParsing="false" onAction="#previousButtonAction" prefHeight="31.0" prefWidth="122.0" text="%button.previous" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="20.0" />
 	<Button fx:id="openButton" defaultButton="true" layoutX="32.0" layoutY="24.0" mnemonicParsing="false" onAction="#openButtonAction" prefHeight="31.0" prefWidth="122.0" text="%button.open" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="30.0" />
-	<ToggleButton fx:id="slideButton" layoutX="873.0" layoutY="24.0" mnemonicParsing="false" onAction="#slideShowButtonAction" prefHeight="31.0" prefWidth="122.0" text="%button.slide" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="30.0" />
+	<ToggleButton fx:id="slideButton" layoutX="873.0" layoutY="24.0" mnemonicParsing="false" onAction="#slideShowButtonAction" prefHeight="31.0" prefWidth="122.0" text="%button.slidePlay" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="30.0" />
 	  <TableView fx:id="resultTable" layoutX="10.0" layoutY="100.0" prefHeight="618.0" prefWidth="141.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="100.0">
     <placeholder>
       <Label text="%table.emptyText" />
