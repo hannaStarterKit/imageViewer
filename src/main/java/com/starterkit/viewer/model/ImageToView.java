@@ -18,6 +18,7 @@ import javafx.scene.image.Image;
  *
  */
 public class ImageToView {
+
 	private final ObjectProperty<Image> image = new SimpleObjectProperty<>();
 	private final ListProperty<String> result = new SimpleListProperty<>(
 			FXCollections.observableList(new ArrayList<>()));
@@ -42,7 +43,7 @@ public class ImageToView {
 		result.setAll(value);
 	}
 
-	public final ListProperty<String> resultProperty() {
+	public ListProperty<String> resultProperty() {
 		return result;
 	}
 }

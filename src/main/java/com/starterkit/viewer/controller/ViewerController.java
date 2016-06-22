@@ -89,7 +89,7 @@ public class ViewerController {
 	@FXML
 	private ScrollPane scrollPane = new ScrollPane();
 
-	final private FileChooser fileChooser = new FileChooser();
+	private final FileChooser fileChooser = new FileChooser();
 
 	private SimpleImageView simpleImageView = new SimpleImageView();
 
@@ -223,7 +223,9 @@ public class ViewerController {
 					LOG.debug("succeeded() called");
 				}
 			};
-			new Thread(backgroundTask).start();
+			Thread thread = new Thread(backgroundTask);
+			thread.setDaemon(true);
+			thread.start();
 		} else {
 			slideButton.setText(resources.getString("button.slidePlay"));
 			LOG.debug("'Slide' button is not Selected, slide show is ended");

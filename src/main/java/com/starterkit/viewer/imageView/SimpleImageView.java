@@ -25,7 +25,7 @@ public class SimpleImageView {
 	public List<String> getImages() {
 		List<String> namesOfImages = new ArrayList<>();
 		for (String absolutePath : images) {
-			namesOfImages.add(absolutePath.substring(absolutePath.lastIndexOf("/") + 1));
+			namesOfImages.add(absolutePath.substring(absolutePath.lastIndexOf("/") + 1).replace("%20", " "));
 		}	
 		return namesOfImages;
 	}
