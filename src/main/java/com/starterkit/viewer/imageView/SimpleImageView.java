@@ -10,7 +10,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.starterkit.viewer.imageView.collection.CircuralList;
+import com.starterkit.viewer.imageView.collection.CircularList;
 
 import javafx.scene.image.Image;
 
@@ -20,7 +20,7 @@ import javafx.scene.image.Image;
  */
 public class SimpleImageView {
 
-	private CircuralList<String> images = new CircuralList<>();
+	private CircularList<String> images = new CircularList<>();
 
 	private double scale = 1;
 
@@ -40,7 +40,7 @@ public class SimpleImageView {
 		return namesOfImages;
 	}
 
-	public void setImages(CircuralList<String> images) {
+	public void setImages(CircularList<String> images) {
 		this.images = images;
 	}
 

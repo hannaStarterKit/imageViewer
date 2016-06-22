@@ -13,9 +13,9 @@ import com.starterkit.viewer.controller.ViewerController;
  * @author HSIENKIE
  *
  */
-public class CircuralList<T> extends ArrayList<T> {
+public class CircularList<T> extends ArrayList<T> {
 
-	private static final Logger LOG = Logger.getLogger(CircuralList.class);
+	private static final Logger LOG = Logger.getLogger(CircularList.class);
 
 	private int currentIndex = size() - 1;
 
