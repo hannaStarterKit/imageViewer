@@ -5,6 +5,7 @@ package com.starterkit.viewer.controller;
 
 import java.io.File;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Timer;
@@ -12,19 +13,24 @@ import java.util.TimerTask;
 
 import org.apache.log4j.Logger;
 
+
 import com.starterkit.viewer.DraggableImageView.DraggableImageView;
 import com.starterkit.viewer.imageView.SimpleImageView;
 import com.starterkit.viewer.model.ImageToView;
 
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
-
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.ToggleButton;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.stage.FileChooser;
 
@@ -73,6 +79,12 @@ public class ViewerController {
 	private Button previousButton;
 
 	@FXML
+	private TableColumn<String, String> nameColumn;
+
+	@FXML
+	private TableView<String> resultTable;
+
+	@FXML
 	private DraggableImageView imageView = new DraggableImageView();
 
 	@FXML
@@ -88,9 +100,6 @@ public class ViewerController {
 
 	public ViewerController() {
 		LOG.debug("Constructor");
-
-		// imageView.setPlaceholder(new
-		// Label(resources.getString("table.emptyText")));
 	}
 
 	/**
@@ -105,10 +114,36 @@ public class ViewerController {
 	@FXML
 	private void initialize() {
 		LOG.debug("initialize()");
+
+		initializeResultTable();
+
 		imageView.imageProperty().bind(model.imageProperty());
+		resultTable.itemsProperty().bind(model.resultProperty());
+
 		slideButton.disableProperty().bind(model.imageProperty().isNull());
 		nextButton.disableProperty().bind(model.imageProperty().isNull());
 		previousButton.disableProperty().bind(model.imageProperty().isNull());
+	}
+
+	private void initializeResultTable() {
+
+		nameColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue()));
+
+		resultTable.setPlaceholder(new Label(resources.getString("table.emptyText")));
+		
+		resultTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				LOG.debug(newValue + " selected");
+
+				if (newValue != null) {
+					simpleImageView.setCurrentIndex(resultTable.getSelectionModel().getSelectedIndex()-1);
+					model.setImage(simpleImageView.getNext());
+				}
+			}
+		});
+
 	}
 
 	@FXML
@@ -133,6 +168,8 @@ public class ViewerController {
 			}
 			simpleImageView.reset();
 			model.setImage(simpleImageView.getNext());
+			model.setResult(new ArrayList<String>(simpleImageView.getImages()));
+			resultTable.getSortOrder().clear();
 		}
 	}
 
@@ -184,7 +221,7 @@ public class ViewerController {
 			};
 			new Thread(backgroundTask).start();
 		} else {
-			LOG.debug("slideButton id not Selected, Slideshow is ended");
+			LOG.debug("'Slide' button is not Selected, Slideshow is ended");
 			timer.cancel();
 		}
 	}

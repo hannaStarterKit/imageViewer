@@ -19,4 +19,13 @@
 	<Button fx:id="previousButton" defaultButton="true" layoutX="32.0" layoutY="467.0" mnemonicParsing="false" onAction="#previousButtonAction" prefHeight="31.0" prefWidth="122.0" text="%button.previous" AnchorPane.bottomAnchor="88.0" AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="803.0" AnchorPane.topAnchor="467.0" />
 	<Button fx:id="openButton" defaultButton="true" layoutX="32.0" layoutY="24.0" mnemonicParsing="false" onAction="#openButtonAction" prefHeight="31.0" prefWidth="122.0" text="%button.open" AnchorPane.bottomAnchor="531.0" AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="803.0" AnchorPane.topAnchor="24.0" />
 	<ToggleButton fx:id="slideButton" layoutX="810.0" layoutY="24.0" mnemonicParsing="false" onAction="#slideShowButtonAction" prefHeight="31.0" prefWidth="122.0" text="%button.slide" AnchorPane.bottomAnchor="531.0" AnchorPane.leftAnchor="810.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="24.0" />
+	  <TableView fx:id="resultTable" layoutX="14.0" layoutY="71.0" prefHeight="375.0" prefWidth="136.0">
+    <placeholder>
+      <Label text="%table.emptyText" />
+    </placeholder>
+    <columns>
+      <TableColumn fx:id="nameColumn" minWidth="158.0" prefWidth="190.0" text="%column.name" />
+    </columns>
+  </TableView>
+
 </AnchorPane>

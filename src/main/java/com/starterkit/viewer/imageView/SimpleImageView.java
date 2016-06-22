@@ -5,12 +5,14 @@ package com.starterkit.viewer.imageView;
 
 import java.io.File;
 import java.net.MalformedURLException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
-import com.starterkit.viewer.imageView.container.CircuralList;
+import com.starterkit.viewer.imageView.collection.CircuralList;
 
-import javafx.beans.value.ObservableValue;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
 /**
  * @author HSIENKIE
@@ -18,10 +20,38 @@ import javafx.scene.image.ImageView;
  */
 public class SimpleImageView {
 
-	private CircuralList<File> images = new CircuralList<>();
-	
+	private CircuralList<String> images = new CircuralList<>();
+
 	private double scale = 1;
-	
+
+	// public List<String> getNamesOfImages() {
+	// List<String> names = new ArrayList<>();
+	// for (File file : images) {
+	// names.add(file.getName());
+	// }
+	// return names;
+	// }
+
+	public List<String> getImages() {
+		List<String> namesOfImages = new ArrayList<>();
+		for (String absolutePath : images) {
+			namesOfImages.add(absolutePath.substring(absolutePath.lastIndexOf("/") + 1));
+		}	
+		return namesOfImages;
+	}
+
+	public void setImages(CircuralList<String> images) {
+		this.images = images;
+	}
+
+	public int getCurrentIndex() {
+		return images.getCurrentIndex();
+	}
+
+	public void setCurrentIndex(int currentIndex) {
+		images.setCurrentIndex(currentIndex);
+	}
+
 	public double getScale() {
 		return scale;
 	}
@@ -30,12 +60,17 @@ public class SimpleImageView {
 		this.scale = scale;
 	}
 
-	public int getSizeOfImages(){
+	public int getSizeOfImages() {
 		return images.size();
 	}
 
 	public void addFile(File file) {
-		images.add(file);
+		try {
+			images.add(file.toURI().toURL().toString());
+		} catch (MalformedURLException e) {
+			throw new RuntimeException(
+					"Protocol handler for the URL could not be found, or some other error occurred while constructing the URL");
+		}
 	}
 
 	public void reset() {
@@ -43,25 +78,11 @@ public class SimpleImageView {
 	}
 
 	public Image getNext() {
-		String url = null;
-		try {
-			url = images.getNext().toURI().toURL().toString();
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return new Image(url);
+		return new Image(images.getNext());
 	}
 
 	public Image getPrevious() {
-		String url = null;
-		try {
-			url = images.getPrevious().toURI().toURL().toString();
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return new Image(url);
+		return new Image(images.getPrevious());
 	}
 
 }
