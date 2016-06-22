@@ -13,7 +13,6 @@ import java.util.TimerTask;
 
 import org.apache.log4j.Logger;
 
-
 import com.starterkit.viewer.DraggableImageView.DraggableImageView;
 import com.starterkit.viewer.imageView.SimpleImageView;
 import com.starterkit.viewer.model.ImageToView;
@@ -96,7 +95,7 @@ public class ViewerController {
 
 	private final ImageToView model = new ImageToView();
 
-	private final Timer timer = new Timer();
+	private Timer timer;
 
 	public ViewerController() {
 		LOG.debug("Constructor");
@@ -130,7 +129,7 @@ public class ViewerController {
 		nameColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue()));
 
 		resultTable.setPlaceholder(new Label(resources.getString("table.emptyText")));
-		
+
 		resultTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 
 			@Override
@@ -138,7 +137,7 @@ public class ViewerController {
 				LOG.debug(newValue + " selected");
 
 				if (newValue != null) {
-					simpleImageView.setCurrentIndex(resultTable.getSelectionModel().getSelectedIndex()-1);
+					simpleImageView.setCurrentIndex(resultTable.getSelectionModel().getSelectedIndex() - 1);
 					model.setImage(simpleImageView.getNext());
 				}
 			}
@@ -196,14 +195,16 @@ public class ViewerController {
 	@FXML
 	private void slideShowButtonAction(ActionEvent event) {
 		LOG.debug("'Slide' button clicked");
-		if (slideButton.isSelected()) {
-			LOG.debug("slideButton id Selected");
-			Task<Void> backgroundTask = new Task<Void>() {
 
+		if (slideButton.isSelected()) {
+			slideButton.setText("Stop slide show");
+			LOG.debug("'Slide' button is Selected");
+			Task<Void> backgroundTask = new Task<Void>() {
 				@Override
 				protected Void call() throws Exception {
 					LOG.debug("call() called");
 					long delay = 1000;
+					timer = new Timer();
 					timer.schedule(new TimerTask() {
 
 						@Override
@@ -216,14 +217,16 @@ public class ViewerController {
 
 				@Override
 				protected void succeeded() {
-
+					LOG.debug("succeeded() called");
 				}
 			};
 			new Thread(backgroundTask).start();
 		} else {
-			LOG.debug("'Slide' button is not Selected, Slideshow is ended");
+			slideButton.setText("Play slide show");
+			LOG.debug("'Slide' button is not Selected, slide show is ended");
 			timer.cancel();
 		}
+
 	}
 
 }

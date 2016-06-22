@@ -5,8 +5,6 @@ package com.starterkit.viewer.imageView;
 
 import java.io.File;
 import java.net.MalformedURLException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,14 +21,6 @@ public class SimpleImageView {
 	private CircularList<String> images = new CircularList<>();
 
 	private double scale = 1;
-
-	// public List<String> getNamesOfImages() {
-	// List<String> names = new ArrayList<>();
-	// for (File file : images) {
-	// names.add(file.getName());
-	// }
-	// return names;
-	// }
 
 	public List<String> getImages() {
 		List<String> namesOfImages = new ArrayList<>();

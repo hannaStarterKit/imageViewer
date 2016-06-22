@@ -8,18 +8,18 @@
 <?import javafx.scene.image.*?>
 <?import com.starterkit.viewer.DraggableImageView.*?>
 
-<AnchorPane prefHeight="586.0" prefWidth="746.0" xmlns="http://javafx.com/javafx/8.0.66" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.starterkit.viewer.controller.ViewerController">
-	<ScrollPane fx:id="scrollPane" layoutX="162.0" layoutY="70.0" pannable="true" prefHeight="375.0" prefWidth="633.0" AnchorPane.bottomAnchor="141.0" AnchorPane.leftAnchor="162.0" AnchorPane.rightAnchor="162.0" AnchorPane.topAnchor="70.0">
+<AnchorPane prefHeight="818.0" prefWidth="1152.0" xmlns="http://javafx.com/javafx/8.0.66" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.starterkit.viewer.controller.ViewerController">
+	<ScrollPane fx:id="scrollPane" layoutX="162.0" layoutY="70.0" pannable="true" prefHeight="375.0" prefWidth="633.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="160.0" AnchorPane.rightAnchor="160.0" AnchorPane.topAnchor="100.0">
 		<content>
-			<DraggableImageView fx:id="imageView" fitHeight="1000.0" fitWidth="1000.0" layoutX="158.0" layoutY="179.0" onScroll="#scrolling" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="235.0" AnchorPane.leftAnchor="212.0" AnchorPane.rightAnchor="271.0" AnchorPane.topAnchor="254.0" />
+			<DraggableImageView fx:id="imageView" fitHeight="2000.0" fitWidth="2000.0" layoutX="158.0" layoutY="179.0" onScroll="#scrolling" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="235.0" AnchorPane.leftAnchor="212.0" AnchorPane.rightAnchor="271.0" AnchorPane.topAnchor="254.0" />
 		</content>
 	</ScrollPane>
-	<Label layoutX="207.0" layoutY="9.0" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="61.0" prefWidth="474.0" styleClass="formTitle" text="%label.formTitle" AnchorPane.bottomAnchor="516.0" AnchorPane.leftAnchor="207.0" AnchorPane.rightAnchor="276.0" AnchorPane.topAnchor="9.0" />
-	<Button fx:id="nextButton" defaultButton="true" layoutX="810.0" layoutY="467.0" mnemonicParsing="false" onAction="#nextButtonAction" prefHeight="31.0" prefWidth="122.0" text="%button.next" AnchorPane.bottomAnchor="88.0" AnchorPane.leftAnchor="810.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="467.0" />
-	<Button fx:id="previousButton" defaultButton="true" layoutX="32.0" layoutY="467.0" mnemonicParsing="false" onAction="#previousButtonAction" prefHeight="31.0" prefWidth="122.0" text="%button.previous" AnchorPane.bottomAnchor="88.0" AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="803.0" AnchorPane.topAnchor="467.0" />
-	<Button fx:id="openButton" defaultButton="true" layoutX="32.0" layoutY="24.0" mnemonicParsing="false" onAction="#openButtonAction" prefHeight="31.0" prefWidth="122.0" text="%button.open" AnchorPane.bottomAnchor="531.0" AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="803.0" AnchorPane.topAnchor="24.0" />
-	<ToggleButton fx:id="slideButton" layoutX="810.0" layoutY="24.0" mnemonicParsing="false" onAction="#slideShowButtonAction" prefHeight="31.0" prefWidth="122.0" text="%button.slide" AnchorPane.bottomAnchor="531.0" AnchorPane.leftAnchor="810.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="24.0" />
-	  <TableView fx:id="resultTable" layoutX="14.0" layoutY="71.0" prefHeight="375.0" prefWidth="136.0">
+	<Label layoutX="294.0" layoutY="16.0" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="59.0" prefWidth="565.0" styleClass="formTitle" text="%label.formTitle" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="20.0" />
+	<Button fx:id="nextButton" defaultButton="true" layoutX="810.0" layoutY="467.0" mnemonicParsing="false" onAction="#nextButtonAction" prefHeight="31.0" prefWidth="122.0" text="%button.next" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="20.0" />
+	<Button fx:id="previousButton" defaultButton="true" layoutX="32.0" layoutY="467.0" mnemonicParsing="false" onAction="#previousButtonAction" prefHeight="31.0" prefWidth="122.0" text="%button.previous" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="20.0" />
+	<Button fx:id="openButton" defaultButton="true" layoutX="32.0" layoutY="24.0" mnemonicParsing="false" onAction="#openButtonAction" prefHeight="31.0" prefWidth="122.0" text="%button.open" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="30.0" />
+	<ToggleButton fx:id="slideButton" layoutX="873.0" layoutY="24.0" mnemonicParsing="false" onAction="#slideShowButtonAction" prefHeight="31.0" prefWidth="122.0" text="%button.slide" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="30.0" />
+	  <TableView fx:id="resultTable" layoutX="10.0" layoutY="100.0" prefHeight="618.0" prefWidth="141.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="100.0">
     <placeholder>
       <Label text="%table.emptyText" />
     </placeholder>
