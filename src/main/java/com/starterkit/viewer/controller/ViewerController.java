@@ -184,11 +184,14 @@ public class ViewerController {
 		model.setImage(simpleImageView.getNext());
 	}
 
-	private static void configureFileChooser(final FileChooser fileChooser) {
-		fileChooser.setTitle("View Pictures");
-		fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
-		fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("All Images", "*.*"),
-				new FileChooser.ExtensionFilter("JPG", "*.jpg"), new FileChooser.ExtensionFilter("PNG", "*.png"));
+	private void configureFileChooser(final FileChooser fileChooser) {
+		fileChooser.setTitle(resources.getString("fileChooser.title"));
+		fileChooser.setInitialDirectory(new File(System.getProperty(resources.getString("initialDirectory"))));
+		fileChooser.getExtensionFilters()
+				.addAll(new FileChooser.ExtensionFilter(resources.getString("extensionFilterJPG"),
+						resources.getString("extensionFilter_jpg")),
+				new FileChooser.ExtensionFilter(resources.getString("extensionFilterPNG"),
+						resources.getString("extensionFilter_png")));
 	}
 
 	// Timer
