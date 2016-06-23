@@ -18,6 +18,7 @@ import javafx.scene.image.Image;
  */
 public class SimpleImageView {
 
+	// REV: lepiej chyba przechowywac obiekty File, a nie URLe w stringu
 	private CircularList<String> images = new CircularList<>();
 
 	private double scale = 1;
@@ -58,6 +59,7 @@ public class SimpleImageView {
 		try {
 			images.add(file.toURI().toURL().toString());
 		} catch (MalformedURLException e) {
+			// REV: exception chaining
 			throw new RuntimeException(
 					"Protocol handler for the URL could not be found, or some other error occurred while constructing the URL");
 		}
