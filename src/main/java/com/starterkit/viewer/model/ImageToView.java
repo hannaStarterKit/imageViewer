@@ -19,6 +19,7 @@ import javafx.scene.image.Image;
  */
 public class ImageToView {
 
+	// REV: Image to obiekt UI, wiec nie powininen wystepowac w modelu, ale dzieki temu mozna zrobic fajne bindy
 	private final ObjectProperty<Image> image = new SimpleObjectProperty<>();
 	private final ListProperty<String> result = new SimpleListProperty<>(
 			FXCollections.observableList(new ArrayList<>()));

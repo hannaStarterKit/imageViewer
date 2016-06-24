@@ -145,6 +145,7 @@ public class ViewerController {
 				LOG.debug(newValue + " selected");
 
 				if (newValue != null) {
+					// REV: czy to w ogóle dziala???
 					simpleImageView.setCurrentIndex(resultTable.getSelectionModel().getSelectedIndex() - 1);
 					model.setImage(simpleImageView.getNext());
 				}
@@ -232,6 +233,7 @@ public class ViewerController {
 		if (slideButton.isSelected()) {
 			slideButton.setText(resources.getString("button.slideStop"));
 			LOG.debug("'Slide' button is Selected");
+			// REV: Ten task i watek nie sa potrzebne, Timer startuje wlasny watek
 			Task<Void> backgroundTask = new Task<Void>() {
 				@Override
 				protected Void call() throws Exception {
@@ -242,6 +244,7 @@ public class ViewerController {
 
 						@Override
 						public void run() {
+							// REV: zmiana obrazka powinna byc wykonana w watku JavaFX
 							model.setImage(simpleImageView.getNext());
 						}
 					}, 0, delay);

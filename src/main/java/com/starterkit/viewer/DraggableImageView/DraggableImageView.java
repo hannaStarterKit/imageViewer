@@ -12,6 +12,7 @@ import javafx.scene.image.ImageView;
  * @author HSIENKIE
  *
  */
+// REV: ta klasa nie jest potrzebna
 public class DraggableImageView extends ImageView {
 
 	private double mouseX;
