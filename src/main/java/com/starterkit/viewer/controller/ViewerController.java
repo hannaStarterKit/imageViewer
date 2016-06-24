@@ -10,6 +10,9 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
 
 import org.apache.log4j.Logger;
 
@@ -32,6 +35,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.input.ScrollEvent;
 import javafx.stage.FileChooser;
+import static java.util.concurrent.TimeUnit.*;
 
 /**
  * @author HSIENKIE
@@ -96,6 +100,10 @@ public class ViewerController {
 	private final ImageToView model = new ImageToView();
 
 	private Timer timer;
+
+	private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+
+	private ScheduledFuture<?> beeperHandle;
 
 	public ViewerController() {
 		LOG.debug("Constructor");
@@ -198,7 +206,29 @@ public class ViewerController {
 	@FXML
 	private void slideShowButtonAction(ActionEvent event) {
 		LOG.debug("'Slide' button clicked");
+		// slideShowButtonActionVersion1();
+		slideShowButtonActionVersion2();
 
+	}
+
+	private void slideShowButtonActionVersion2() {
+		if (slideButton.isSelected()) {
+			slideButton.setText(resources.getString("button.slideStop"));
+			final Runnable beeper = new Runnable() {
+				public void run() {
+					model.setImage(simpleImageView.getNext());
+				}
+			};
+			beeperHandle = scheduler.scheduleAtFixedRate(beeper, 0, 1, SECONDS);
+		} else {
+			slideButton.setText(resources.getString("button.slidePlay"));
+			LOG.debug("'Slide' button is not Selected, slide show is ended");
+			beeperHandle.cancel(true);
+		}
+
+	}
+
+	private void slideShowButtonActionVersion1() {
 		if (slideButton.isSelected()) {
 			slideButton.setText(resources.getString("button.slideStop"));
 			LOG.debug("'Slide' button is Selected");
@@ -231,7 +261,6 @@ public class ViewerController {
 			LOG.debug("'Slide' button is not Selected, slide show is ended");
 			timer.cancel();
 		}
-
 	}
 
 }

@@ -6,10 +6,13 @@ package com.starterkit.viewer;
 import java.util.ResourceBundle;
 
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 /**
  * @author HSIENKIE
@@ -44,6 +47,19 @@ public class Startup extends Application {
 
 		primaryStage.show();
 
+	    primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+	        @Override
+	        public void handle(WindowEvent e) {
+	           Platform.exit();
+	           System.exit(0);
+	        }
+	     });
+		
+	}
+	
+	@Override
+	public void stop() {
+		
 	}
 
 }
