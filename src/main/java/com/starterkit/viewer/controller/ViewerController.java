@@ -23,7 +23,6 @@ import com.starterkit.viewer.model.ImageToView;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -207,8 +206,8 @@ public class ViewerController {
 	@FXML
 	private void slideShowButtonAction(ActionEvent event) {
 		LOG.debug("'Slide' button clicked");
-		// slideShowButtonActionVersion1();
-		slideShowButtonActionVersion2();
+		slideShowButtonActionVersion1();
+		//slideShowButtonActionVersion2();
 
 	}
 
@@ -233,32 +232,18 @@ public class ViewerController {
 		if (slideButton.isSelected()) {
 			slideButton.setText(resources.getString("button.slideStop"));
 			LOG.debug("'Slide' button is Selected");
-			// REV: Ten task i watek nie sa potrzebne, Timer startuje wlasny watek
-			Task<Void> backgroundTask = new Task<Void>() {
-				@Override
-				protected Void call() throws Exception {
-					LOG.debug("call() called");
-					long delay = 1000;
-					timer = new Timer();
-					timer.schedule(new TimerTask() {
-
-						@Override
-						public void run() {
-							// REV: zmiana obrazka powinna byc wykonana w watku JavaFX
-							model.setImage(simpleImageView.getNext());
-						}
-					}, 0, delay);
-					return null;
-				}
+			// REV: Ten task i watek nie sa potrzebne, Timer startuje wlasny
+			// watek
+			long delay = 1000;
+			timer = new Timer();
+			timer.schedule(new TimerTask() {
 
 				@Override
-				protected void succeeded() {
-					LOG.debug("succeeded() called");
+				public void run() {
+					// REV: zmiana obrazka powinna byc wykonana w watku JavaFX
+					model.setImage(simpleImageView.getNext());
 				}
-			};
-			Thread thread = new Thread(backgroundTask);
-			thread.setDaemon(true);
-			thread.start();
+			}, 0, delay);
 		} else {
 			slideButton.setText(resources.getString("button.slidePlay"));
 			LOG.debug("'Slide' button is not Selected, slide show is ended");
